@@ -305,7 +305,8 @@ class CachedCausalLM:
             tok = AutoTokenizer.from_pretrained(model_id)
             mod = AutoModelForCausalLM.from_pretrained(
                 model_id,
-                device_map="auto"
+                device_map="auto",
+                trust_remote_code=True
                 # quantization_config=bnb_config,
             )
         else:
@@ -313,7 +314,8 @@ class CachedCausalLM:
             mod = AutoModelForCausalLM.from_pretrained(
                 model_id,
                 token=auth_token,
-                device_map="auto"
+                device_map="auto",
+                trust_remote_code=True
                 # quantization_config=bnb_config,
             )
 
