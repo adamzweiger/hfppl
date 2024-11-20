@@ -299,22 +299,22 @@ class CachedCausalLM:
         Returns:
             model (hfppl.llms.CachedCausalLM): the LLaMPPL-compatible interface to the HuggingFace model.
         """
-        bnb_config = BitsAndBytesConfig(load_in_8bit=load_in_8bit)
+        # bnb_config = BitsAndBytesConfig(load_in_8bit=load_in_8bit)
 
         if not auth_token:
             tok = AutoTokenizer.from_pretrained(model_id)
             mod = AutoModelForCausalLM.from_pretrained(
                 model_id,
-                device_map="auto",
-                quantization_config=bnb_config,
+                device_map="auto"
+                # quantization_config=bnb_config,
             )
         else:
             tok = AutoTokenizer.from_pretrained(model_id, token=auth_token)
             mod = AutoModelForCausalLM.from_pretrained(
                 model_id,
                 token=auth_token,
-                device_map="auto",
-                quantization_config=bnb_config,
+                device_map="auto"
+                # quantization_config=bnb_config,
             )
 
         return CachedCausalLM(mod, tok)
