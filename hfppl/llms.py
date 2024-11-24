@@ -302,7 +302,7 @@ class CachedCausalLM:
         # bnb_config = BitsAndBytesConfig(load_in_8bit=load_in_8bit)
 
         if not auth_token:
-            tok = AutoTokenizer.from_pretrained(model_id)
+            tok = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
             mod = AutoModelForCausalLM.from_pretrained(
                 model_id,
                 device_map="auto",
@@ -310,7 +310,7 @@ class CachedCausalLM:
                 # quantization_config=bnb_config,
             )
         else:
-            tok = AutoTokenizer.from_pretrained(model_id, token=auth_token)
+            tok = AutoTokenizer.from_pretrained(model_id, token=auth_token, trust_remote_code=True)
             mod = AutoModelForCausalLM.from_pretrained(
                 model_id,
                 token=auth_token,
